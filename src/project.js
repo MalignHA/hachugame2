@@ -1609,7 +1609,7 @@ window.__require = function e(t, n, o) {
             // 生成指定水果
             this.scheduleOnce(function () {
               if (setFruits) {
-                let {startFruits} =  setFruits;
+				let {startFruits} =  setFruits;
                 i.default.GameUpdateCtrl && (startFruits.length > t.createFruitCount ?
                   (a.default.Instance.createOneFruit(startFruits[t.createFruitCount]), t.createFruitCount++) :
                   (a.default.Instance.createOneFruit(setFruits.randomFunction()), t.createFruitCount++))
