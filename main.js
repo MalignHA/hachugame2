@@ -124,35 +124,59 @@ window.boot = function() {
         cc.loader.downloader._subpackages = settings.subpackages;
 
         cc.view.enableRetina(true);
-        cc.view.resizeWithBrowserSize(true);
+		cc.view.resizeWithBrowserSize(true);
+		
+		
 
         if (!false && !false) {
 
-            if (cc.sys.isBrowser) {
-                setLoadingDisplay();
-            }
 
-            if (cc.sys.isMobile) {
-                if (settings.orientation === 'landscape') {
-                    cc.view.setOrientation(cc.macro.ORIENTATION_LANDSCAPE);
-                } else if (settings.orientation === 'portrait') {
-                    cc.view.setOrientation(cc.macro.ORIENTATION_PORTRAIT);
-                }
-                // cc.view.enableAutoFullScreen([
-                //     cc.sys.BROWSER_TYPE_BAIDU,
-                //     cc.sys.BROWSER_TYPE_WECHAT,
-                //     cc.sys.BROWSER_TYPE_MOBILE_QQ,
-                //     cc.sys.BROWSER_TYPE_MIUI,
-                // ].indexOf(cc.sys.browserType) < 0);
-                cc.view.enableAutoFullScreen(false);
-            }
+			//mobile view in browser
+			var isMobileViewInBrowser = cc.sys.isBrowser && cc.sys.isMobile;
 
-            // Limit downloading max concurrent task to 2,
-            // more tasks simultaneously may cause performance draw back on some android system / browsers.
-            // You can adjust the number based on your own test result, you have to set it before any loading process to take effect.
-            if (cc.sys.isBrowser && cc.sys.os === cc.sys.OS_ANDROID) {
-                cc.macro.DOWNLOAD_MAX_CONCURRENT = 2;
-            }
+			if (cc.sys.isBrowser) {
+				setLoadingDisplay();
+
+				if (!isMobileViewInBrowser) {
+					document.getElementById("canvasDiv").style.height = "100%";
+					document.getElementById("canvasDiv").style.width = "32%";
+
+
+					document.getElementById("canvasDiv").style.textAlign = "center";
+					document.getElementById("canvasDiv").style.position = "absolute";
+					document.getElementById("canvasDiv").style.left = "35%";
+					document.getElementById("canvasDiv").style.right = "65%";
+				} else {
+					document.getElementById("canvasDiv").style.height = "100%";
+					document.getElementById("canvasDiv").style.width = "100%";
+
+					var winHeight = document.documentElement.clientHeight;
+					document.getElementById("canvasDiv").style.height = winHeight + "px";
+				}
+
+			}
+
+			if (cc.sys.isMobile) {
+				if (settings.orientation === 'landscape') {
+					cc.view.setOrientation(cc.macro.ORIENTATION_LANDSCAPE);
+				} else if (settings.orientation === 'portrait') {
+					cc.view.setOrientation(cc.macro.ORIENTATION_PORTRAIT);
+				}
+				// cc.view.enableAutoFullScreen([
+				//     cc.sys.BROWSER_TYPE_BAIDU,
+				//     cc.sys.BROWSER_TYPE_WECHAT,
+				//     cc.sys.BROWSER_TYPE_MOBILE_QQ,
+				//     cc.sys.BROWSER_TYPE_MIUI,
+				// ].indexOf(cc.sys.browserType) < 0);
+				cc.view.enableAutoFullScreen(false);
+			}
+
+			// Limit downloading max concurrent task to 2,
+			// more tasks simultaneously may cause performance draw back on some android system / browsers.
+			// You can adjust the number based on your own test result, you have to set it before any loading process to take effect.
+			if (cc.sys.isBrowser && cc.sys.os === cc.sys.OS_ANDROID) {
+				cc.macro.DOWNLOAD_MAX_CONCURRENT = 2;
+			}
         }
 
         // function loadScene(launchScene) {
